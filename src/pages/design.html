@@ -1,0 +1,171 @@
+{% extends 'layouts/master.html' %}
+
+{% block bodyattr %} ms-controller="design" {% endblock %}
+
+{% block content %}
+
+
+<!--头部-->
+<nav class="navbar navbar-default navbar-fixed-top editor-page-head-menu" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">FLOWIT</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav left-menu">
+        <li><a href="javascript:;">设置作品标题 <i class="fa fa-pencil"></i></a></li>
+        <li><a href="javascript:;">940px × 788px <i class="fa fa-retweet"></i></a></li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">使用帮助 <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">会员中心 <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="editor-page">
+  <div class="editor-box">
+    <div class="left">
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#tabTableBac" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i>背景</a>
+        </li>
+        <li role="presentation">
+          <a href="#tabTableWord" role="tab" data-toggle="tab"><i class="fa fa-font"></i>文字</a>
+        </li>
+        <li role="presentation">
+          <a href="#tabTablePic" role="tab" data-toggle="tab"><i class="fa fa-picture-o"></i>图片</a>
+        </li>
+        <li role="presentation">
+          <a href="#tabTableIcon" role="tab" data-toggle="tab"><i class="fa fa-thumbs-o-up"></i>图标</a>
+        </li>
+        <li role="presentation">
+          <a href="#tabTableShape" role="tab" data-toggle="tab"><i class="fa fa-star-o"></i>形状</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tabTableBac">
+          设置背景
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tabTableWord">
+          <a href="javascript:;" ms-click="addText('line')">
+            添加一行文字
+          </a>
+          <br />
+          <a href="javascript:;" ms-click="addText('p')">
+            添加多行文字
+          </a>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tabTablePic">
+          <a href="javascript:;" ms-click="addPic('https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png')">
+            <img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png" style="border:1px #000 solid" />
+          </a>
+
+          <a href="javascript:;" ms-click="addPic('http://p3.qhmsg.com/t01b7cb83f41d31a8bf.png')">
+            <img src="http://p3.qhmsg.com/t01b7cb83f41d31a8bf.png" style="border:1px #000 solid" />
+          </a>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tabTableIcon">
+
+          <a href="javascript:;" ms-click="addIcon('fa-area-chart')">
+            <i class="fa fa-area-chart" style="font-size:50px"></i>
+          </a>
+
+          <a href="javascript:;" ms-click="addIcon('fa-cubes')">
+            <i class="fa fa-cubes" style="font-size:50px"></i>
+          </a>
+
+          <a href="javascript:;" ms-click="addIcon('fa-cogs')">
+            <i class="fa fa-cogs" style="font-size:50px"></i>
+          </a>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tabTableShape">
+
+          长方形：
+          <a href="javascript:;" ms-click="addDiv('square')" style="width:100px;height:50px;background:#000;display:block;margin-left:20px"></a>
+          <br />
+
+          圆形：
+          <a href="javascript:;" ms-click="addDiv('circle')" style="width:100px;height:100px;border-radius:50%;background:#000;display:block;margin-left:20px"></a>
+          <br />
+
+          横线：
+          <a href="javascript:;" ms-click="addDiv('line')" style="width:100px;height:1px;background:#000;display:block;margin-left:20px"></a>
+          <br />
+
+          竖线：
+          <a href="javascript:;" ms-click="addDiv('vertical')" style="width:1px;height:100px;background:#000;display:block;margin-left:20px"></a>
+          <br />
+
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="submenu clearfix">
+        <ul class="nav navbar-nav">
+          <li><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="复制"><i class="fa fa-clone"></i></a></li>
+          <li><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="下移一层"><i class="fa fa-list-ol"></i><i class="fa fa-long-arrow-down"></i></a></li>
+          <li><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="上移一层"><i class="fa fa-list-ol"></i><i class="fa fa-long-arrow-up"></i></a></li>
+          <li><a href="javascript:;" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-trash-o"></i></a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="javascript:;"><i class="fa fa-floppy-o"></i>保存</a></li>
+          <li><a href="javascript:;"><i class="fa fa-share-alt"></i>分享</a></li>
+          <li><a href="javascript:;"><i class="fa fa-cloud-download"></i>下载</a></li>
+        </ul>
+      </div>
+      <div class="canvas-wrap">
+
+        <!--画板-->
+        <div class="design-board" style="background:#607d8b;top:20px;left:20px;width:600px;height:300px;">
+
+
+        </div>
+
+      </div>
+      <div class="zoom-wrap">
+        <button type="button" class="btn btn-link btn-xs"><i class="fa fa-minus-circle"></i></button>
+        <div class="range"><input type="range" min="10" max="100" value="100" /></div>
+        <button type="button" class="btn btn-link btn-xs"><i class="fa fa-plus-circle"></i></button>
+        <button type="button" class="btn btn-default btn-xs">100%</button>
+        <button type="button" class="btn btn-default btn-xs">适配</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+  <script src="/static/js/design.js"></script>
+{% endblock %}
