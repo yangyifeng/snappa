@@ -14,7 +14,6 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav left-menu">
         <li><a href="javascript:;">设置作品标题 <i class="fa fa-pencil"></i></a></li>
-        <li><a href="javascript:;">940px × 788px <i class="fa fa-retweet"></i></a></li>
       </ul>
       <ul class="nav navbar-nav pull-right">
         <li class="dropdown">
@@ -52,13 +51,13 @@
     <div class="left">
       <ul class="nav nav-tabs nav-justified" role="tablist">
         <li role="presentation" class="active">
-          <a href="#tabTableBac" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i>背景</a>
-        </li>
-        <li role="presentation">
-          <a href="#tabTableWord" role="tab" data-toggle="tab"><i class="fa fa-font"></i>文字</a>
+          <a href="#tabTableBac" role="tab" data-toggle="tab"><i class="fa fa-cogs"></i>设置</a>
         </li>
         <li role="presentation">
           <a href="#tabTablePic" role="tab" data-toggle="tab"><i class="fa fa-picture-o"></i>图片</a>
+        </li>
+        <li role="presentation">
+          <a href="#tabTableWord" role="tab" data-toggle="tab"><i class="fa fa-font"></i>文字</a>
         </li>
         <li role="presentation">
           <a href="#tabTableIcon" role="tab" data-toggle="tab"><i class="fa fa-thumbs-o-up"></i>图标</a>
@@ -71,17 +70,34 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="tabTableBac">
-          设置背景
+          
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class="col-xs-3 control-label">背景颜色</label>
+              <div class="col-xs-8">
+                <div class="form-group">
+                  <div class="input-group col-xs-4">
+                    <input class="form-control" type="color" value="#607d8b">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-3 control-label">画布尺寸</label>
+              <div class="col-xs-8">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" type="text" value="600">
+                    <div class="input-group-addon">x</div>
+                    <input class="form-control" type="text" value="300">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
         </div>
-        <div role="tabpanel" class="tab-pane" id="tabTableWord">
-          <a href="javascript:;" ms-click="addText('line')">
-            添加一行文字
-          </a>
-          <br />
-          <a href="javascript:;" ms-click="addText('p')">
-            添加多行文字
-          </a>
-        </div>
+        
         <div role="tabpanel" class="tab-pane" id="tabTablePic">
           <a href="javascript:;" ms-click="addPic('https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png')">
             <img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png" style="border:1px #000 solid" />
@@ -92,6 +108,17 @@
           </a>
 
         </div>
+
+        <div role="tabpanel" class="tab-pane" id="tabTableWord">
+          <a href="javascript:;" ms-click="addText('line')">
+            添加一行文字
+          </a>
+          <br />
+          <a href="javascript:;" ms-click="addText('p')">
+            添加多行文字
+          </a>
+        </div>
+
         <div role="tabpanel" class="tab-pane" id="tabTableIcon">
 
           <a href="javascript:;" ms-click="addIcon('fa-area-chart')">
