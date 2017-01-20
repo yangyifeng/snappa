@@ -4,10 +4,13 @@ import "./libs/yz.ui";
 import "./libs/yz.helper";
 
 import {DragCreateLib} from "./libs/yz.drag.create";
-import {DragEditLib} from "./libs/yz.drag.edit";
+import {ToolboxCanvasLib} from "./libs/yz.drag.toolbox";
 
 
-//图片原始数据
+/**
+ *  图片原始数据
+ *
+ ***/
 var canvas = {
   id: 'xxxxxxx',
   name: '',
@@ -114,8 +117,30 @@ var canvas = {
   ]
 };
 
+/**
+ * 预设：画布属性、画布元素
+ *
+ *
+ ***/
+function initCanvas(_canvas) {
 
+  //画布工具箱：背景颜色
+  ToolboxCanvasLib.bgColor(_canvas.backgroundColor);
+  //画布工具箱：宽度
+  ToolboxCanvasLib.width(_canvas.width);
+  //画布工具箱：高度
+  ToolboxCanvasLib.height(_canvas.height);
+  //画布元素：
+  _canvas.layers.forEach(function(v){
+    DragAddElement(v)
+  });
+}
 
+/**
+ *
+ * 页面交互操作
+ *
+ **/
 let vm = avalon.define({
   $id: "design",
   //添加图片
@@ -161,11 +186,7 @@ let pullAll = async function() {
 let afterPull = function() {
   $('a').tooltip();
 
-  // 渲染 layers 
-  canvas.layers.forEach(function(v){
-    DragAddElement(v)
-  });
-
+  initCanvas(canvas);
 }
 
 $(function() {
