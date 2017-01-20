@@ -1,4 +1,4 @@
-import "./yz.drag";
+import "./yz.drag.add";
 
 //时间戳
 function getRandomId(type) {
@@ -21,7 +21,7 @@ export class DragCreateLib {
     img.src = url;
     img.onload = function(){
 
-      DragInitElement({
+      DragAddElement({
         id: getRandomId('image'),
         type: 'image',
         content: url,
@@ -46,7 +46,7 @@ export class DragCreateLib {
 
     var text = (type == 'line') ? '单行文字' : '多行文字\n第二行文字\n第三行文字';
 
-    DragInitElement({
+    DragAddElement({
         id: getRandomId('textarea'),
         type: 'textarea',
         content: text,
@@ -89,7 +89,7 @@ export class DragCreateLib {
 
     icon.remove();
 
-    DragInitElement({
+    DragAddElement({
       id: getRandomId('icon'),
       type: 'icon',
       content: name,
@@ -146,7 +146,7 @@ export class DragCreateLib {
         break;
     }
 
-    DragInitElement({
+    DragAddElement({
       id: getRandomId('div'),
       type: 'div',
       content: '',

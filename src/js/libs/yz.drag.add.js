@@ -33,6 +33,56 @@ function getScale() {
 }
 
 //新增画板元素
+function addImage(options, elem) {
+    var img = $(document.createElement('img')).appendTo(elem);
+    img
+    .addClass('edit-content')
+    .attr('src', options.content)
+    .css({
+      'opacity': options.attribute.opacity
+    });   
+}
+function addIcon(options, elem) {
+    var icon = $(document.createElement('i')).appendTo(elem);
+    icon
+    .addClass('edit-content fa ' + options.content)
+    .css({
+      'opacity': options.attribute.opacity,
+      'color': options.attribute.color,
+      'fontSize': options.attribute.fontSize
+    });
+}
+function addDiv(options, elem) {
+    var div = $(document.createElement('div')).appendTo(elem);
+    div
+    .addClass('edit-content')
+    .css({
+        'opacity': options.attribute.opacity,
+        'width': options.width - options.attribute.borderWidth*2,
+        'height': options.height - options.attribute.borderWidth*2,
+        'borderWidth': options.attribute.borderWidth,
+        'borderColor': options.attribute.borderColor,
+        'borderStyle': options.attribute.borderStyle,
+        'background': options.attribute.background,
+        'borderRadius': options.attribute.borderRadius
+    });
+}
+function addTextarea(options, elem) {
+    var textarea = $(document.createElement('textarea')).appendTo(elem);
+    textarea
+    .addClass('edit-content')
+    .css({
+        'opacity': options.attribute.opacity,
+        'fontFamily': options.attribute.fontFamily,
+        'fontSize': options.attribute.fontSize,
+        'color': options.attribute.color,
+        'textAlign': options.attribute.textAlign,
+        'letterSpacing': options.attribute.letterSpacing,
+        'lineHeight': options.attribute.lineHeight,
+        'textShadow': options.attribute.textShadowOffset + ' ' + options.attribute.textShadowOffset + ' ' + options.attribute.textShadowBlur + ' ' + options.attribute.textShadowColor
+    })
+    .val(options.content);
+}
 function addElement(options) {
 
     var canvas = $('.design-board');
@@ -49,58 +99,12 @@ function addElement(options) {
     .attr('data-type', options.type)
     .attr('id', options.id);
 
-    if(options.type == 'image'){
-        var img = $(document.createElement('img')).appendTo(elem);
-        img
-        .addClass('edit-content')
-        .attr('src', options.content)
-        .css({
-          'opacity': options.attribute.opacity
-        });
-    }
-
-    if(options.type == 'icon'){
-        var icon = $(document.createElement('i')).appendTo(elem);
-        icon
-        .addClass('edit-content fa ' + options.content)
-        .css({
-          'opacity': options.attribute.opacity,
-          'color': options.attribute.color,
-          'fontSize': options.attribute.fontSize
-        });
-    }
-
-    if(options.type == 'div'){
-      var div = $(document.createElement('div')).appendTo(elem);
-      div
-      .addClass('edit-content')
-      .css({
-        'opacity': options.attribute.opacity,
-        'width': options.width - options.attribute.borderWidth*2,
-        'height': options.height - options.attribute.borderWidth*2,
-        'borderWidth': options.attribute.borderWidth,
-        'borderColor': options.attribute.borderColor,
-        'borderStyle': options.attribute.borderStyle,
-        'background': options.attribute.background,
-        'borderRadius': options.attribute.borderRadius
-      });
-    }
-
-    if(options.type == 'textarea'){
-      var textarea = $(document.createElement('textarea')).appendTo(elem);
-      textarea
-      .addClass('edit-content')
-      .css({
-        'opacity': options.attribute.opacity,
-        'fontFamily': options.attribute.fontFamily,
-        'fontSize': options.attribute.fontSize,
-        'color': options.attribute.color,
-        'textAlign': options.attribute.textAlign,
-        'letterSpacing': options.attribute.letterSpacing,
-        'lineHeight': options.attribute.lineHeight,
-        'textShadow': options.attribute.textShadowOffset + ' ' + options.attribute.textShadowOffset + ' ' + options.attribute.textShadowBlur + ' ' + options.attribute.textShadowColor
-      })
-      .val(options.content);
+    switch(options.type){
+        case 'image':       addImage(options, elem);            break;
+        case 'icon':        addIcon(options, elem);             break;
+        case 'div':         addDiv(options, elem);              break;
+        case 'textarea':    addTextarea(options, elem);         break;
+        default:            console.log(options.type + ' 待处理'); break;
     }
 
     var element = elem[0]; 
@@ -110,15 +114,9 @@ function addElement(options) {
     new createOtherManager(element);
 }
 
-//编辑画板元素
-function editElement(options) {
-
-}
-
-function dragInitElement(options) {
-    //新增或者编辑
-    $('#'+options.id).length == 0 ? addElement(options) : editElement(options);
+function dragAddElement(options) {
+    $('#'+options.id).length == 0 ? addElement(options) : console.log( options.id + ' 已存在，不能创建');
 }
 
 //渲染元素：根据参数 创建、修改 元素
-window.DragInitElement = dragInitElement;
+window.DragAddElement = dragAddElement;

@@ -154,7 +154,7 @@ let afterPull = function() {
 
   // 渲染 layers 
   layers.forEach(function(v){
-    DragInitElement(v)
+    DragAddElement(v)
   });
 
 }
