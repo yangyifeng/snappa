@@ -1,5 +1,9 @@
-//动作：变形属性
-function Matrix(data) {
+/**
+ * 动作：变形属性
+ *
+ **/
+
+ function Matrix(data) {
     
     if (data == null) {
         data = [];

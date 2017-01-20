@@ -1,4 +1,7 @@
-//动作：拖动移动
+/**
+ * 动作：拖动移动
+ *
+ **/
 function createDragManager(element) {
         
         var moveEvent = null;

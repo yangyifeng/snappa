@@ -1,5 +1,11 @@
 import "./yz.drag.add";
 
+/**
+ *
+ * 返回 新建 画布中元素 需要的 options，给 yz.drag.add 使用
+ *
+ **/
+
 //时间戳
 function getRandomId(type) {
   var t = new Date().getTime();

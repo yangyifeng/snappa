@@ -1,4 +1,8 @@
-//动作：拖动旋转
+/**
+ * 动作：拖动旋转
+ *
+ **/
+
 function createRotateManager(element) {
         
         var context = this;

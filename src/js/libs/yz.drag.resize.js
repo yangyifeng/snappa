@@ -1,4 +1,8 @@
-//动作：拖动改变尺寸
+/**
+ * 动作：拖动改变尺寸
+ *
+ **/
+
 function createResizeManager(element) {
 
         var centerRightHandler  = $(document.createElement('div')).addClass('moveHandle centerRightHandler').appendTo(element);

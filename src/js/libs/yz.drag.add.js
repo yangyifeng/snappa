@@ -4,11 +4,17 @@ import "./yz.drag.drag";
 import "./yz.drag.resize";
 import "./yz.drag.rotate";
 
-//画板中有各种元素，包括：文字(textarea)，图片(image)，形状(div)，字体图标(icon)
-//每个元素，都是一组完整的 dom，结构如下：
-//  <div class="edit-box">   --> 添加 .active 则表示是当前活跃的元素
-//    <img class="edit-content">   --> 这里可以是 文字(textarea)，图片(image)，形状(div)，字体图标(icon)
-//  </div>
+/**
+ *
+ * 根据 options 添加元素到画布中
+ * 画板中有各种元素，包括：文字(textarea)，图片(image)，形状(div)，字体图标(icon)
+ * 每个元素，都是一组完整的 dom，结构如下：
+ *  <div class="edit-box">   --> 添加 .active 则表示是当前活跃的元素
+ *    <img class="edit-content">   --> 这里可以是 文字(textarea)，图片(image)，形状(div)，字体图标(icon)
+ *  </div>
+ *
+ **/
+
 
 //其他事件
 function createOtherManager(element) {
