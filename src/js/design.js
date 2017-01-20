@@ -4,106 +4,115 @@ import "./libs/yz.ui";
 import "./libs/yz.helper";
 
 import {DragCreateLib} from "./libs/yz.drag.create";
+import {DragEditLib} from "./libs/yz.drag.edit";
+
 
 //图片原始数据
-var layers = [
-  {
-    id: 'test001',
-    type: 'image',
-    content: 'http://www.yoozi.cn/usr/themes/yoozi/img/logo-white.png.pagespeed.ce.47k9VQu8IK.png',
-    width: 83,
-    height: 34,
-    top: 80,
-    left: 270,
-    zIndex: 12,
-    transform: 'matrix(0.966095, -0.258203, 0.258203, 0.966095, 24.1082, -15.6013)',
-    angle: -0.24536632770880606,
-    attribute: {
-      opacity: 0.5,
+var canvas = {
+  id: 'xxxxxxx',
+  name: '',
+  backgroundColor: '#607d8b',
+  width: 600,
+  height: 300,
+  layers: [
+    {
+      id: 'test001',
+      type: 'image',
+      content: 'http://www.yoozi.cn/usr/themes/yoozi/img/logo-white.png.pagespeed.ce.47k9VQu8IK.png',
+      width: 83,
+      height: 34,
+      top: 80,
+      left: 270,
+      zIndex: 12,
+      transform: 'matrix(0.966095, -0.258203, 0.258203, 0.966095, 24.1082, -15.6013)',
+      angle: -0.24536632770880606,
+      attribute: {
+        opacity: 0.5,
+      }
+    },
+    {
+      id: 'test002',
+      type: 'icon',
+      content: 'fa-bicycle',
+      width: 65,
+      height: 50,
+      top: 100,
+      left: 281,
+      zIndex: 13,
+      transform: '0',
+      angle: 0,
+      attribute: {
+        opacity: 0.8,
+        color: '#1abc9c',
+        fontSize: '50px'
+      }
+    },
+    {
+      id: 'test003',
+      type: 'div',
+      content: '',
+      width: 130,
+      height: 140,
+      top: 100,
+      left: 450,
+      zIndex: 14,
+      transform: '0',
+      angle: 0,
+      attribute: {
+        opacity: 0.8,
+        borderWidth: '12',
+        borderColor: '#FFF',
+        borderStyle: 'dashed',
+        background: '#FF0000',
+        borderRadius: '30px'
+      }
+    },
+    {
+      id: 'test004',
+      type: 'div',
+      content: '',
+      width: 130,
+      height: 1,
+      top: 240,
+      left: 320,
+      zIndex: 15,
+      transform: '0',
+      angle: 0,
+      attribute: {
+        opacity: 0.8,
+        borderWidth: '0',
+        borderColor: 'none',
+        borderStyle: 'none',
+        background: '#FF0000',
+        borderRadius: '0'
+      }
+    },
+    {
+      id: 'test005',
+      type: 'textarea',
+      content: '我滴个神呀',
+      width: 230,
+      height: 50,
+      top: 180,
+      left: 260,
+      zIndex: 16,
+      transform: '0',
+      angle: 0,
+      attribute: {
+        opacity: 0.8,
+        fontFamily: 'initial',
+        fontSize: '14px',
+        color: '#0000',
+        textAlign: 'center',
+        letterSpacing: '0px',
+        lineHeight: '20px',
+        textShadowOffset: '1px',
+        textShadowBlur: '1px',
+        textShadowColor: '#FFF'
+      }
     }
-  },
-  {
-    id: 'test002',
-    type: 'icon',
-    content: 'fa-bicycle',
-    width: 65,
-    height: 50,
-    top: 100,
-    left: 281,
-    zIndex: 13,
-    transform: '0',
-    angle: 0,
-    attribute: {
-      opacity: 0.8,
-      color: '#1abc9c',
-      fontSize: '50px'
-    }
-  },
-  {
-    id: 'test003',
-    type: 'div',
-    content: '',
-    width: 130,
-    height: 140,
-    top: 100,
-    left: 450,
-    zIndex: 14,
-    transform: '0',
-    angle: 0,
-    attribute: {
-      opacity: 0.8,
-      borderWidth: '12',
-      borderColor: '#FFF',
-      borderStyle: 'dashed',
-      background: '#FF0000',
-      borderRadius: '30px'
-    }
-  },
-  {
-    id: 'test004',
-    type: 'div',
-    content: '',
-    width: 130,
-    height: 1,
-    top: 240,
-    left: 320,
-    zIndex: 15,
-    transform: '0',
-    angle: 0,
-    attribute: {
-      opacity: 0.8,
-      borderWidth: '0',
-      borderColor: 'none',
-      borderStyle: 'none',
-      background: '#FF0000',
-      borderRadius: '0'
-    }
-  },
-  {
-    id: 'test005',
-    type: 'textarea',
-    content: '我滴个神呀',
-    width: 230,
-    height: 50,
-    top: 180,
-    left: 260,
-    zIndex: 16,
-    transform: '0',
-    angle: 0,
-    attribute: {
-      opacity: 0.8,
-      fontFamily: 'initial',
-      fontSize: '14px',
-      color: '#0000',
-      textAlign: 'center',
-      letterSpacing: '0px',
-      lineHeight: '20px',
-      textShadowOffset: '1px',
-      textShadowBlur: '1px',
-      textShadowColor: '#FFF'
-    }
-  }
-];
+  ]
+};
 
 
 
@@ -153,7 +162,7 @@ let afterPull = function() {
   $('a').tooltip();
 
   // 渲染 layers 
-  layers.forEach(function(v){
+  canvas.layers.forEach(function(v){
     DragAddElement(v)
   });
 

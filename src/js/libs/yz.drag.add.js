@@ -42,6 +42,7 @@ function addImage(options, elem) {
       'opacity': options.attribute.opacity
     });   
 }
+
 function addIcon(options, elem) {
     var icon = $(document.createElement('i')).appendTo(elem);
     icon
@@ -52,6 +53,7 @@ function addIcon(options, elem) {
       'fontSize': options.attribute.fontSize
     });
 }
+
 function addDiv(options, elem) {
     var div = $(document.createElement('div')).appendTo(elem);
     div
@@ -67,6 +69,7 @@ function addDiv(options, elem) {
         'borderRadius': options.attribute.borderRadius
     });
 }
+
 function addTextarea(options, elem) {
     var textarea = $(document.createElement('textarea')).appendTo(elem);
     textarea
@@ -83,6 +86,7 @@ function addTextarea(options, elem) {
     })
     .val(options.content);
 }
+
 function addElement(options) {
 
     var canvas = $('.design-board');
