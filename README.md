@@ -26,4 +26,5 @@ gulp d
 gulp clean
 gulp p
 ```
+
 设置apache的vhosts，目录指向dist并开启rewrite。
