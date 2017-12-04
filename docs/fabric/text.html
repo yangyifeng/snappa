@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>text - fabric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <style type="text/css">
+      body{
+        font-size: 12px;
+      }
+      @font-face { 
+        font-family: 'FZCaiYun'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E5%BD%A9%E4%BA%91%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZXiaoBiaoSong'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E5%B0%8F%E6%A0%87%E5%AE%8B%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZXiDengXian'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E7%BB%86%E7%AD%89%E7%BA%BF%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZDiShu'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E9%9A%B6%E4%B9%A6%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      .wrap{
+        position: relative;
+        top: 10px;
+        left: 10px;
+      }
+      #c{
+        border: 1px #000 solid;
+      }
+      .control{
+        border: 1px #000 solid;
+        width: 400px;
+        position: absolute;
+        top: 18px;
+        left: 840px;
+      }
+      .control > div,
+      .control > div > div{
+        padding: 10px;
+      }
+    </style>
+
+</head>
+<body>
+
+    <div class="wrap">
+      <canvas id="c" width="800" height="500"></canvas>
+    </div>
+
+    <div class="control">
+      <div style="border-bottom:1px #000 solid">
+        <button id="addText" style="font-size:20px;">添加文字</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="savePic" style="font-size:20px;">保存图片到本地</button>
+      </div>
+
+      <div id="controlPanel" style="display:none">
+          <div>
+            <a href="javascript:void(0);" id="delText">删除选中文字</a>
+          </div>
+          <div>
+            选择字体：
+            <select id="fontFamily">
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="FZCaiYun">FZCaiYun</option>
+              <option value="FZXiaoBiaoSong">FZXiaoBiaoSong</option>
+              <option value="FZXiDengXian">FZXiDengXian</option>
+              <option value="FZDiShu">FZDiShu</option>
+            </select>
+          </div>
+          <div>
+            背景颜色：
+            <input type="color" id="backgroundColor" />
+          </div>
+          <div>
+            对齐：
+            <select id="textAlign">
+              <option value="left">left</option>
+              <option value="center">center</option>
+              <option value="right">right</option>
+            </select>
+          </div>
+          <div>
+            字体大小：
+            12px <input type="range" id="fontSize" value="12" min="12" max="200"> 200px
+          </div>
+          <div>
+            斜体：
+            <select id="fontStyle">
+              <option value="normal">正常</option>
+              <option value="italic">斜体</option>
+            </select>
+          </div>
+          <div>
+            字体颜色：
+            <input type="color" id="fill" />
+          </div>
+          <div>
+            加粗：
+            <select id="fontWeight">
+              <option value="normal">正常</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+            </select>
+          </div>
+          <div>
+            上横线：
+            <select id="overline">
+              <option value="">无</option>
+              <option value="overline">有</option>
+            </select>
+          </div>
+          <div>
+            中横线：
+            <select id="linethrough">
+              <option value="">无</option>
+              <option value="linethrough">有</option>
+            </select>
+          </div>
+          <div>
+            下横线：
+            <select id="underline">
+              <option value="">无</option>
+              <option value="underline">有</option>
+            </select>
+          </div>
+          <div>
+            行高：
+            1 <input type="range" id="lineHeight" value="0" step="0.1" min="1" max="10"> 10
+          </div>
+
+        </div>
+
+    </div>
+
+    <script src="./assets/js/fabric/fabric.js"></script>
+    <script type="text/javascript">
+
+      function $(id){
+        return document.getElementById(id);
+      }
+
+      var canvas = new fabric.Canvas('c');
+
+      //添加一行文字
+      $('addText').onclick = function(){
+        var textbox = new fabric.Textbox('一行文字', {
+          left: 50,
+          top: 50,
+          width: 150,
+          fontSize: 20
+        });
+        
+        //去掉变形控制手柄
+        textbox.setControlVisible('bl', false);
+        textbox.setControlVisible('br', false);
+        textbox.setControlVisible('mb', false);
+        textbox.setControlVisible('mt', false);
+        textbox.setControlVisible('tl', false);
+        textbox.setControlVisible('tr', false);
+
+        canvas.add(textbox).setActiveObject(textbox);
+
+        //显示控制器
+        updateControls();
+      }
+
+      //删除
+      $('delText').onclick = function(){
+        canvas.remove(canvas.getActiveObject());
+        $('controlPanel').style.display = 'none';
+      }
+
+      //选择字体
+      $('fontFamily').onchange = function(){
+        canvas.getActiveObject().set("fontFamily", this.value);
+        canvas.requestRenderAll();
+      }
+
+      //选择背景颜色
+      $('backgroundColor').onchange = function(){
+        canvas.getActiveObject().set("backgroundColor", this.value);
+        canvas.requestRenderAll();
+      }
+
+      //对齐
+      $('textAlign').onchange = function(){
+        canvas.getActiveObject().set("textAlign", this.value);
+        canvas.requestRenderAll();
+      }
+
+      //字体大小
+      $('fontSize').onchange = function(){
+        canvas.getActiveObject().set('fontSize', this.value);
+        canvas.requestRenderAll();
+      }
+
+      //样式
+      $('fontStyle').onchange = function(){
+        canvas.getActiveObject().set('fontStyle', this.value);
+        canvas.requestRenderAll();
+      }
+
+      //选择字体颜色
+      $('fill').onchange = function(){
+        canvas.getActiveObject().set("fill", this.value);
+        canvas.requestRenderAll();
+      }
+
+      //加粗
+      $('fontWeight').onchange = function(){
+        canvas.getActiveObject().set('fontWeight', this.value);
+        canvas.requestRenderAll();
+      }
+
+      //上横线
+      $('overline').onchange = function(){
+        canvas.getActiveObject().set('overline', this.value);
+        canvas.requestRenderAll();
+      }
+      //中横线
+      $('linethrough').onchange = function(){
+        canvas.getActiveObject().set('linethrough', this.value);
+        canvas.requestRenderAll();
+      }
+      //下横线 
+      $('underline').onchange = function(){
+        canvas.getActiveObject().set('underline', this.value);
+        canvas.requestRenderAll();
+      }
+
+      //行高
+      $('lineHeight').onchange = function(){
+        canvas.getActiveObject().set('lineHeight', this.value);
+        canvas.requestRenderAll();
+      }
+
+      //监听当前选中的元素
+      canvas.on({
+        'mouse:down': updateControls,
+      });
+
+      //更新控制器
+      function updateControls(){
+        if(canvas.getActiveObject() && canvas.getActiveObject().type == 'textbox'){
+          var ob = canvas.getActiveObject();
+          //显示控制器面板
+          $('controlPanel').style.display = 'block';
+          //赋值各个参数 
+          setInputValue('fontFamily', ob.fontFamily)
+          setInputValue('backgroundColor', ob.backgroundColor)
+          setInputValue('textAlign', ob.textAlign)
+          setInputValue('fontSize', ob.fontSize)
+          setInputValue('fontStyle', ob.fontStyle)
+          setInputValue('fill', ob.fill)
+          setInputValue('fontWeight', ob.fontWeight)
+          setInputValue('overline', ob.overline)
+          setInputValue('linethrough', ob.linethrough)
+          setInputValue('underline', ob.underline)
+          setInputValue('lineHeight', ob.lineHeight)
+        }
+        else{
+          $('controlPanel').style.display = 'none';
+        }
+      }
+
+      //控制器的 input 赋值
+      function setInputValue(name, val){
+        $(name).value = val;
+      }
+
+      //保存图片到本地
+      $('savePic').onclick = function(){
+
+        var type = 'png';
+        var imgData = $('c').toDataURL(type);
+
+        var _fixType = function(type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+            var r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+        };
+        imgData = imgData.replace(_fixType(type),'image/octet-stream');
+
+        var filename = 'download.' + type;
+
+        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+        save_link.href = imgData;
+        save_link.download = filename;
+       
+        var event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        save_link.dispatchEvent(event);
+      }
+
+    </script>
+</body>
+</body>
+</html>
