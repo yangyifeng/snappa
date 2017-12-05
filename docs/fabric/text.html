@@ -60,8 +60,6 @@
     <div class="control">
       <div style="border-bottom:1px #000 solid">
         <button id="addText" style="font-size:20px;">添加文字</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button id="savePic" style="font-size:20px;">保存图片到本地</button>
       </div>
 
       <div id="controlPanel" style="display:none">
@@ -145,7 +143,19 @@
             行高：
             1 <input type="range" id="lineHeight" value="0" step="0.1" min="1" max="10"> 10
           </div>
+          <div>
+            透明度：
+            0.1 <input type="range" id="opacity" value="0" step="0.1" min="0.1" max="1"> 1
+          </div>
 
+        </div>
+
+
+
+        <div style="border-top:1px #000 solid">
+          <button id="savePic" style="font-size:20px;">保存图片到本地</button>
+          &nbsp;&nbsp;
+          <button id="checkJSON" style="font-size:20px;">查看 JSON 数据</button>
         </div>
 
     </div>
@@ -158,6 +168,13 @@
       }
 
       var canvas = new fabric.Canvas('c');
+
+      //预加载
+      var json = {"version":"2.0.0-rc.3","objects":[{"type":"textbox","version":"2.0.0-rc.3","originX":"left","originY":"top","left":136.15,"top":162.17,"width":434.03,"height":81,"fill":"#ff0080","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":8.26,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"#ffff00","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"text":"我们的客户正在解决本世纪最具挑战的问题，\n我们会提供创新的设计理念和丰富的技术工具、\n创造富有感染力和影响力的用户体验，\n帮助他们获得成功。","fontSize":"16","fontWeight":"normal","fontFamily":"FZCaiYun","fontStyle":"normal","lineHeight":1.16,"underline":false,"overline":false,"linethrough":false,"textAlign":"center","textBackgroundColor":"","charSpacing":0,"minWidth":20,"styles":{}},{"type":"textbox","version":"2.0.0-rc.3","originX":"left","originY":"top","left":90,"top":84,"width":585,"height":55.37,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","transformMatrix":null,"skewX":0,"skewY":0,"text":"领先的信息化方案提供商","fontSize":"49","fontWeight":"normal","fontFamily":"FZDiShu","fontStyle":"normal","lineHeight":1.16,"underline":false,"overline":false,"linethrough":false,"textAlign":"left","textBackgroundColor":"","charSpacing":0,"minWidth":20,"styles":{}}]};
+      canvas.loadFromJSON(json, function(){
+        console.log('done')
+      });
+
 
       //添加一行文字
       $('addText').onclick = function(){
@@ -252,6 +269,12 @@
         canvas.requestRenderAll();
       }
 
+      //透明度
+      $('opacity').onchange = function(){
+        canvas.getActiveObject().set('opacity', this.value);
+        canvas.requestRenderAll();
+      }
+
       //监听当前选中的元素
       canvas.on({
         'mouse:down': updateControls,
@@ -275,6 +298,7 @@
           setInputValue('linethrough', ob.linethrough)
           setInputValue('underline', ob.underline)
           setInputValue('lineHeight', ob.lineHeight)
+          setInputValue('opacity', ob.opacity)
         }
         else{
           $('controlPanel').style.display = 'none';
@@ -308,6 +332,17 @@
         var event = document.createEvent('MouseEvents');
         event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
         save_link.dispatchEvent(event);
+      }
+
+      //查看 json 数据
+      $('checkJSON').onclick = function(){
+        console.log(JSON.stringify(canvas))
+          
+        //该 json 数据可以预加载
+        //var json = JSON.stringify(canvas)
+        //canvas.loadFromJSON(json, function(){
+        //  console.log('done')
+        //});
       }
 
     </script>
