@@ -32,9 +32,7 @@ $('addImage').onchange = function(){
 //图片滤镜
 fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 var imgFilters = fabric.Image.filters;
-var filters = ['invert', 'sepia', 
-                'blackwhite','brownie','vintage','kodachrome','technicolor','polaroid',
-                'brightness', 'contrast', 'saturation', 'hue', 'noise', 'pixelate', 'blur'];
+var filters = ['invert', 'sepia', 'blackwhite', 'brightness', 'contrast', 'saturation', 'hue', 'noise', 'pixelate', 'blur'];
 
 function applyFilter(index, filter) {
   var obj = canvas.getActiveObject();
@@ -55,64 +53,48 @@ $('sepia').onclick = function(){
 $('blackwhite').onclick = function(){
   applyFilter(2, this.checked && new imgFilters.BlackWhite());
 }
-$('brownie').onclick = function(){
-  applyFilter(3, this.checked && new imgFilters.Brownie());
-}
-$('vintage').onclick = function(){
-  applyFilter(4, this.checked && new imgFilters.Vintage());
-}
-$('kodachrome').onclick = function(){
-  applyFilter(5, this.checked && new imgFilters.Kodachrome());
-}
-$('technicolor').onclick = function(){
-  applyFilter(6, this.checked && new imgFilters.Technicolor());
-}
-$('polaroid').onclick = function(){
-  applyFilter(7, this.checked && new imgFilters.Polaroid());
-}
-
 
 $('brightness').oninput = function(){
-  applyFilter(8, new imgFilters.Brightness({
+  applyFilter(3, new imgFilters.Brightness({
       brightness: parseFloat(this.value)
     }));
 }
 $('contrast').oninput = function(){
-  applyFilter(9, new imgFilters.Contrast({
+  applyFilter(4, new imgFilters.Contrast({
       contrast: parseFloat(this.value)
     }));
 }
 $('saturation').oninput = function(){
-  applyFilter(10, new imgFilters.Saturation({
+  applyFilter(5, new imgFilters.Saturation({
       saturation: parseFloat(this.value)
     }));
 }
 $('hue').oninput = function(){
-  applyFilter(11, new imgFilters.HueRotation({
+  applyFilter(6, new imgFilters.HueRotation({
       rotation: parseFloat(this.value)
     }));
 }
 $('noise').oninput = function(){
-  applyFilter(12, new imgFilters.Noise({
+  applyFilter(7, new imgFilters.Noise({
       noise: parseFloat(this.value, 10)
     }));
 }
 $('pixelate').onchange = function(){
   if(this.value < 2){
-    applyFilter(13, false);
+    applyFilter(8, false);
   }
   else{
-    applyFilter(13, new imgFilters.Pixelate({
+    applyFilter(8, new imgFilters.Pixelate({
       blocksize: parseInt(this.value, 10)
     }));
   }
 }
 $('blur').oninput = function(){
   if(this.value == 0){
-    applyFilter(14, false);
+    applyFilter(9, false);
   }
   else{
-    applyFilter(14, new imgFilters.Blur({
+    applyFilter(9, new imgFilters.Blur({
       blur: parseFloat(this.value, 10)
     }));
   }
