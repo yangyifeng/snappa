@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>image - fabric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <style type="text/css">
+      body{
+        font-size: 12px;
+      } 
+
+      .wrap{
+        position: relative;
+        top: 10px;
+        left: 10px;
+      }
+      #c{
+        border: 1px #000 solid;
+      }
+      .control{
+        border: 1px #000 solid;
+        width: 400px;
+        position: absolute;
+        top: 18px;
+        left: 840px;
+      }
+      .control > div,
+      .control > div > div{
+        padding: 10px;
+      }
+    </style>
+
+</head>
+<body>
+
+    <div class="wrap">
+      <canvas id="c" width="800" height="500"></canvas>
+    </div>
+
+    <div class="control">
+      <div style="border-bottom:1px #000 solid">
+
+        <img src="./assets/img/demo/1.jpg" width="70" onclick="addImage('./assets/img/demo/1.jpg')" />
+        <img src="./assets/img/demo/2.jpg" width="70" onclick="addImage('./assets/img/demo/2.jpg')"/>
+        <img src="./assets/img/demo/3.jpg" width="70" onclick="addImage('./assets/img/demo/3.jpg')"/>
+        <img src="./assets/img/demo/4.jpg" width="70" onclick="addImage('./assets/img/demo/4.jpg')"/>
+        <img src="./assets/img/demo/5.jpg" width="70" onclick="addImage('./assets/img/demo/5.jpg')"/>
+
+      </div>
+
+      <div id="controlPanel">
+          <div>
+            <a href="javascript:void(0);" id="delImage">删除选中图片</a>
+          </div>
+          <div>
+            选择字体：
+            <select id="fontFamily">
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="FZCaiYun">FZCaiYun</option>
+              <option value="FZXiaoBiaoSong">FZXiaoBiaoSong</option>
+              <option value="FZXiDengXian">FZXiDengXian</option>
+              <option value="FZDiShu">FZDiShu</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div style="border-top:1px #000 solid">
+          <button id="savePic" style="font-size:20px;">保存图片到本地</button>
+          &nbsp;&nbsp;
+          <button id="checkJSON" style="font-size:20px;">查看 JSON 数据</button>
+        </div>
+
+    </div>
+
+    <script src="./assets/js/fabric/fabric.js"></script>
+    <script type="text/javascript">
+
+      function $(id){
+        return document.getElementById(id);
+      }
+
+      var canvas = new fabric.Canvas('c');
+
+      //添加图片
+      function addImage(val){
+        fabric.Image.fromURL(val, function(img) {
+
+          //去掉变形控制手柄
+          img.setControlVisible('ml', false);
+          img.setControlVisible('mb', false);
+          img.setControlVisible('mt', false);
+          img.setControlVisible('mr', false);
+          
+          canvas.add(img).renderAll();
+        });
+      }
+
+      //删除
+      $('delImage').onclick = function(){
+        canvas.remove(canvas.getActiveObject());
+      }
+
+      
+
+      //控制器的 input 赋值
+      function setInputValue(name, val){
+        $(name).value = val;
+      }
+
+      //保存图片到本地
+      $('savePic').onclick = function(){
+
+        var type = 'png';
+        var imgData = $('c').toDataURL(type);
+
+        var _fixType = function(type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+            var r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+        };
+        imgData = imgData.replace(_fixType(type),'image/octet-stream');
+
+        var filename = 'download.' + type;
+
+        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+        save_link.href = imgData;
+        save_link.download = filename;
+       
+        var event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        save_link.dispatchEvent(event);
+      }
+
+      //查看 json 数据
+      $('checkJSON').onclick = function(){
+        console.log(JSON.stringify(canvas))
+          
+        //该 json 数据可以预加载
+        //var json = JSON.stringify(canvas)
+        //canvas.loadFromJSON(json, function(){
+        //  console.log('done')
+        //});
+      }
+
+    </script>
+</body>
+</body>
+</html>

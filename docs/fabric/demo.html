@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>demo - fabric</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <style type="text/css">
+      body{
+        font-size: 12px;
+      }
+      @font-face { 
+        font-family: 'FZCaiYun'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E5%BD%A9%E4%BA%91%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZXiaoBiaoSong'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E5%B0%8F%E6%A0%87%E5%AE%8B%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZXiDengXian'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E7%BB%86%E7%AD%89%E7%BA%BF%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      @font-face { 
+        font-family: 'FZDiShu'; 
+        src: url('https://pub.cdn.oss.chuangkit.com/fonts/2016/08/23/%E6%96%B9%E6%AD%A3%E9%9A%B6%E4%B9%A6%E7%AE%80%E4%BD%93.woff') format('woff'); 
+      } 
+
+      .wrap{
+        position: absolute;
+        top: 10px;
+        left: 320px;
+      }
+      #c{
+        border: 1px #000 solid;
+      }
+      .control{
+        width: 300px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+      .control > div,
+      .control > div > div,
+      .control > div > div > div{
+        padding: 10px;
+      }
+    </style>
+
+</head>
+<body>
+
+    <div class="control">
+
+      <div style="border:1px #000 solid;margin-bottom:10px">
+        <button onclick="loadJson()" style="margin-right:10px">加载模板到画布</button>
+        <br />
+        <button id="savePic" style="margin-right:10px">保存画布到本地</button>
+        <br />
+        <button onclick="checkJSON()">查看画布 JSON 数据</button>
+      </div>
+
+      <div style="border:1px #000 solid;margin-bottom:10px">
+        设置画布：<br /><br />
+
+        <div>
+          背景颜色：<input type="color" id="canvasBackgroundColor" value="#ffffff" />
+        </div>
+
+        <div>
+          画布尺寸：
+          <input type="text" id="canvasWidth" value="800" style="width:50px">
+           x 
+           <input type="text" id="canvasHeight" value="500" style="width:50px">
+        </div>
+      </div>
+
+      <div style="border:1px #000 solid;margin-bottom:10px">
+        <a href="javascript:void(0);" onclick="addText()">添加文字到画布</a>
+
+        <div id="textControlPanel" style="display:none">
+            <div>
+              选择字体：
+              <select id="fontFamily">
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="FZCaiYun">FZCaiYun</option>
+                <option value="FZXiaoBiaoSong">FZXiaoBiaoSong</option>
+                <option value="FZXiDengXian">FZXiDengXian</option>
+                <option value="FZDiShu">FZDiShu</option>
+              </select>
+            </div>
+            <div>
+              背景颜色：
+              <input type="color" id="backgroundColor" />
+            </div>
+            <div>
+              对齐：
+              <select id="textAlign">
+                <option value="left">left</option>
+                <option value="center">center</option>
+                <option value="right">right</option>
+              </select>
+            </div>
+            <div>
+              字体大小：<br />
+              12px <input type="range" id="fontSize" value="12" min="12" max="200"> 200px
+            </div>
+            <div>
+              斜体：
+              <select id="fontStyle">
+                <option value="normal">正常</option>
+                <option value="italic">斜体</option>
+              </select>
+            </div>
+            <div>
+              字体颜色：
+              <input type="color" id="fill" />
+            </div>
+            <div>
+              加粗：
+              <select id="fontWeight">
+                <option value="normal">正常</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
+                <option value="700">700</option>
+                <option value="800">800</option>
+                <option value="900">900</option>
+              </select>
+            </div>
+            <div>
+              上横线：
+              <select id="overline">
+                <option value="">无</option>
+                <option value="overline">有</option>
+              </select>
+            </div>
+            <div>
+              中横线：
+              <select id="linethrough">
+                <option value="">无</option>
+                <option value="linethrough">有</option>
+              </select>
+            </div>
+            <div>
+              下横线：
+              <select id="underline">
+                <option value="">无</option>
+                <option value="underline">有</option>
+              </select>
+            </div>
+            <div>
+              行高：
+              1 <input type="range" id="lineHeight" value="0" step="0.1" min="1" max="10"> 10
+            </div>
+            <div>
+              透明度：
+              0.1 <input type="range" id="opacity" value="0" step="0.1" min="0.1" max="1"> 1
+            </div>
+            <div>
+              <a href="javascript:void(0);" style="color:#FF0000" id="delText">删除选中文字</a>
+            </div>
+        </div>
+      </div>
+
+      <div style="border:1px #000 solid;margin-bottom:10px">
+        添加图片到画布：<br /><br />
+        
+        <input type="file" id="addImage" />
+
+        <div id="imgControlPanel" style="display:none">
+
+          <div> 曝光： <input type="checkbox" id="invert"> </div>
+          <div> 旧报纸： <input type="checkbox" id="sepia"> </div>
+          <div> 去色： <input type="checkbox" id="blackwhite"> </div>
+
+          <div> Brownie： <input type="checkbox" id="brownie"> </div>
+          <div> Vintage： <input type="checkbox" id="vintage"> </div>
+          <div> Kodachrome： <input type="checkbox" id="kodachrome"> </div>
+          <div> Technicolor： <input type="checkbox" id="technicolor"> </div>
+          <div> Polaroid： <input type="checkbox" id="polaroid"> </div>
+
+          <div>
+            亮度：<input type="range" id="brightness" value="0" min="-1" max="1" step="0.003921">
+          </div>
+          <div>
+            对比度：<input type="range" id="contrast" value="0" min="-1" max="1" step="0.003921">
+          </div>
+          <div>
+            色相饱和：<input type="range" id="saturation" value="0" min="-1" max="1" step="0.003921">
+          </div>
+          <div>
+            色调平衡：<input type="range" id="hue" value="0" min="-2" max="2" step="0.002">
+          </div>
+          <div>
+            噪点：<input type="range" id="noise" value="0" min="0" max="100" step="1">
+          </div>
+          <div>
+            马赛克：<input type="range" id="pixelate" value="0" min="0" max="20">
+          </div>
+          <div>
+            模糊：<input type="range" id="blur" value="0" min="0" max="1" step="0.01">
+          </div>
+          
+          
+
+          <div>
+              透明度：
+              0.1 <input type="range" id="imgOpacity" value="0" step="0.1" min="0.1" max="1"> 1
+            </div>
+          <div>
+            <a href="javascript:void(0);" style="color:#FF0000" id="delImage">删除选中图片</a>
+          </div>
+        </div>
+
+      </div>
+
+      
+
+      
+
+    </div>
+
+    <div class="wrap">
+      <canvas id="c" width="800" height="500"></canvas>
+    </div>
+
+    <script src="./assets/js/fabric/fabric.js"></script>
+    <script src="./assets/js/canvas2image.js"></script>
+
+    <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/canvas.js"></script>
+    <script src="./assets/js/text.js"></script>
+    <script src="./assets/js/image.js"></script>
+    <script src="./assets/js/shape.js"></script>
+</body>
+</body>
+</html>
